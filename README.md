@@ -1,3 +1,6 @@
+- production: https://rr-cf-sandbox1-production.devxo.workers.dev/
+- preview: https://rr-cf-sandbox1-preview.devxo.workers.dev/
+
 # Welcome to React Router!
 
 A modern, production-ready template for building full-stack React applications using React Router.
