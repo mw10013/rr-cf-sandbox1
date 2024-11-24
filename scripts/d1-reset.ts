@@ -12,12 +12,12 @@ await $`rm -rf ./.wrangler`;
 // https://github.com/cloudflare/workers-sdk/issues/5092
 await $`pnpm wrangler d1 execute d1-local --local --command "pragma foreign_keys = ON;"`;
 
-// const migrationFiles = await glob('./drizzle/*.sql')
-// console.log({ migrationFiles })
-// if (migrationFiles.length > 0) {
-//   await $`wrangler d1 migrations apply d1-local --local`
-//   await $`pnpm d1:seed`
-// }
+const migrationFiles = await glob('./migrations/*.sql')
+console.log({ migrationFiles })
+if (migrationFiles.length > 0) {
+  await $`pnpm d1:migrate:apply`
+  await $`pnpm d1:seed`
+}
 
 const sqliteFiles = await glob("./.wrangler/state/v3/d1/**/*.sqlite");
 console.log({ sqliteFiles });

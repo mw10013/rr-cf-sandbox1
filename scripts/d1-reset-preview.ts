@@ -5,7 +5,7 @@ import { $, fs } from 'zx'
 
 const database_name = 'langapp-d1-preview'
 const appWranglerPath = './wrangler.toml'
-const workerWranglerPath = './../worker/wrangler.toml'
+// const workerWranglerPath = './../worker/wrangler.toml'
 
 try {
   await $`pnpm wrangler d1 delete ${database_name} --skip-confirmation`
@@ -33,7 +33,7 @@ async function patchWranglerToml(wranglerPath: string) {
 }
 
 await patchWranglerToml(appWranglerPath)
-await patchWranglerToml(workerWranglerPath)
+// await patchWranglerToml(workerWranglerPath)
 
 await $`pnpm d1:migrate:apply:preview`
 await $`pnpm d1:seed:preview`
