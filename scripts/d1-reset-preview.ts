@@ -3,7 +3,7 @@ import { $, fs } from 'zx'
 //  Reset the preview d1 database violently, run migrations and seed.
 //  pnpm -F app script scripts/d1-reset-preview.ts
 
-const database_name = 'langapp-d1-preview'
+const database_name = 'rr-cf-sandbox1-d1-preview'
 const appWranglerPath = './wrangler.toml'
 // const workerWranglerPath = './../worker/wrangler.toml'
 

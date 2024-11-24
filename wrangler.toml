@@ -25,8 +25,8 @@ SERVICE_NAME = "rr-cf-sandbox1-preview"
 
 [[env.preview.d1_databases]]
 binding = "D1"
-database_name = "langapp-d1-preview"
-database_id = "302b54d9-8b77-4668-8679-7b4b9bf63df2"
+database_name = "rr-cf-sandbox1-d1-preview"
+database_id = "a06369dc-701f-4650-9267-2b2729e23881"
 
 [env.production]
 name = "rr-cf-sandbox1-production"
