@@ -13,8 +13,6 @@ SERVICE_NAME = "rr-cf-sandbox1-local"
 binding = "D1"
 database_name = "d1-local"
 database_id = "d1-local"
-migrations_table = "d1_migrations"
-migrations_dir = "migrations"
 
 [env.preview]
 name = "rr-cf-sandbox1-preview"
@@ -29,8 +27,6 @@ SERVICE_NAME = "rr-cf-sandbox1-preview"
 binding = "D1"
 database_name = "langapp-d1-preview"
 database_id = "302b54d9-8b77-4668-8679-7b4b9bf63df2"
-migrations_table = "d1_migrations"
-migrations_dir = "migrations"
 
 [env.production]
 name = "rr-cf-sandbox1-production"
@@ -45,7 +41,5 @@ SERVICE_NAME = "rr-cf-sandbox1-production"
 binding = "D1"
 database_name = "rr-cf-sandbox1-d1-production"
 database_id = "862b0a54-3bb8-4175-9da3-0dd404504106"
-migrations_table = "d1_migrations"
-migrations_dir = "migrations"
 
 

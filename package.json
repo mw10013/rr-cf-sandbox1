@@ -6,7 +6,21 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "wrangler dev",
-    "typecheck": "react-router typegen && tsc --build --noEmit"
+    "typecheck": "react-router typegen && tsc --build --noEmit",
+    "clean": "rm -rf node_modules && rm -rf .wrangler",
+    "d1:migrate:list": "wrangler d1 migrations list d1-local --local",
+    "d1:migrate:apply": "wrangler d1 migrations apply d1-local --local",
+    "d1:migrate:list:preview": "wrangler d1 migrations list rr-cf-sandbox1-d1-preview --env preview --remote",
+    "d1:migrate:apply:preview": "wrangler d1 migrations apply rr-cf-sandbox1-d1-preview --env preview --remote",
+    "d1:migrate:list:PRODUCTION": "wrangler d1 migrations list rr-cf-sandbox1-d1-production --env production --remote",
+    "d1:migrate:apply:PRODUCTION": "wrangler d1 migrations apply rr-cf-sandbox1-d1-production --env production --remote",
+    "d1:reset": "tsx scripts/d1-reset.ts",
+    "d1:reset:preview": "tsx scripts/d1-reset-preview.ts",
+    "d1:reset:PRODUCTION": "tsx scripts/d1-reset-PRODUCTION.ts",
+    "d1:seed": "wrangler d1 execute d1-local --file=./app/lib/db/seed.sql --local",
+    "d1:seed:preview": "wrangler d1 execute rr-cf-sandbox1-d1-preview --file=./app/lib/db/seed.sql --env preview --remote",
+    "d1:seed:PRODUCTION": "wrangler d1 execute rr-cf-sandbox1-d1-production --file=./app/lib/db/seed.sql --env production --remote",
+    "script": "tsx --env-file=.dev.vars"
   },
   "dependencies": {
     "@react-router/fs-routes": "^7.0.1",
