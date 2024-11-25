@@ -9,44 +9,44 @@ const config = {
   singleQuote: true,
   bracketSameLine: true,
   bracketSpacing: true,
-  arrowParens: "always",
-  trailingComma: "es5",
+  arrowParens: 'always',
+  trailingComma: 'es5',
 
   // https://github.com/IanVS/prettier-plugin-sort-imports
   importOrder: [
-    "<TYPES>^(node:)",
-    "<TYPES>",
-    "<TYPES>^[.]",
-    "^(react/(.*)$)|^(react$)",
-    "<THIRD_PARTY_MODULES>",
-    "^~/(.*)$",
-    "^[./]",
+    '<TYPES>^(node:)',
+    '<TYPES>',
+    '<TYPES>^[.]',
+    '^(react/(.*)$)|^(react$)',
+    '<THIRD_PARTY_MODULES>',
+    '^~/(.*)$',
+    '^[./]',
   ],
-  importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
-  importOrderTypeScriptVersion: "5.3.3",
+  importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
+  importOrderTypeScriptVersion: '5.3.3',
 
   // https://github.com/prettier/prettier-vscode/issues/3248: "prettier.documentSelectors": ["**/*.sql"]
   // https://github.com/tailwindlabs/prettier-plugin-tailwindcss
   // https://github.com/tailwindlabs/prettier-plugin-tailwindcss/issues/59
-  tailwindConfig: "tailwind.config.ts",
+  tailwindConfig: 'tailwind.config.ts',
   plugins: [
-    "prettier-plugin-sql",
-    "@ianvs/prettier-plugin-sort-imports",
-    "prettier-plugin-tailwindcss",
+    'prettier-plugin-sql',
+    '@ianvs/prettier-plugin-sort-imports',
+    'prettier-plugin-tailwindcss',
   ],
   overrides: [
     {
-      files: ["*.sql"],
+      files: ['*.sql'],
       // https://github.com/un-ts/prettier/tree/master/packages/sql#parser-options
       // https://github.com/sql-formatter-org/sql-formatter/tree/master/docs
       options: {
         // https://github.com/sql-formatter-org/sql-formatter/blob/master/docs/language.md#impact-on-bundle-size
-        language: "sqlite",
-        dialect: "sqlite",
-        keywordCase: "lower"
+        language: 'sqlite',
+        // dialect: "sqlite",
+        keywordCase: 'lower',
       },
     },
   ],
-};
+}
 
-export default config;
+export default config

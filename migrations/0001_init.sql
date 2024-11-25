@@ -1,27 +1,41 @@
 -- Migration number: 0001 	 2024-11-24T16:28:45.449Z
-create table roles (role_id text primary key);
+create table roles (roleId text primary key);
 
 --> statement-breakpoint
-create table membership_roles (membership_role_id text primary key);
+insert into
+  roles (roleId)
+values
+  ('admin'),
+  ('customer');
+
+--> statement-breakpoint
+create table membershipRoles (membershipRoleId text primary key);
+
+--> statement-breakpoint
+insert into
+  membershipRoles (membershipRoleId)
+values
+  ('owner'),
+  ('member');
 
 --> statement-breakpoint
 create table users (
-  user_id integer primary key,
+  userId integer primary key,
   email text not null unique,
   name text not null default '',
-  role text not null references roles (role_id)
+  role text not null references roles (roleId)
 );
 
 --> statement-breakpoint
 create table organizations (
-  organization_id integer primary key,
+  organizationId integer primary key,
   name text not null
 );
 
 --> statement-breakpoint
 create table memberships (
-  organization_id integer not null references organizations (organization_id) on delete cascade,
-  user_id integer not null references users (user_id) on delete cascade,
-  membership_role not null references membership_roles (membership_role_id),
-  primary key (organization_id, user_id)
+  organizationId integer not null references organizations (organizationId) on delete cascade,
+  userId integer not null references users (userId) on delete cascade,
+  membership_role not null references membershipRoles (membershipRoleId),
+  primary key (organizationId, userId)
 );
