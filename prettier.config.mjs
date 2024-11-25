@@ -28,7 +28,7 @@ const config = {
   // https://github.com/prettier/prettier-vscode/issues/3248: "prettier.documentSelectors": ["**/*.sql"]
   // https://github.com/tailwindlabs/prettier-plugin-tailwindcss
   // https://github.com/tailwindlabs/prettier-plugin-tailwindcss/issues/59
-  tailwindConfig: "./functions/app/tailwind.config.ts",
+  tailwindConfig: "tailwind.config.ts",
   plugins: [
     "prettier-plugin-sql",
     "@ianvs/prettier-plugin-sort-imports",
