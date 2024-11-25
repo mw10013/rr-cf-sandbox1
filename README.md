@@ -1,6 +1,27 @@
 - production: https://rr-cf-sandbox1-production.devxo.workers.dev/
 - preview: https://rr-cf-sandbox1-preview.devxo.workers.dev/
 
+# Typegen
+
+- pnpm typegen
+- Remember to run 'wrangler types --x-include-runtime' again if you change 'compatibility_date' or 'compatibility_flags' in your wrangler.toml.
+- https://developers.cloudflare.com/workers/languages/typescript/#transitive-loading-of-typesnode-overrides-cloudflareworkers-types
+- Since you have Node.js compatibility mode enabled, you should consider adding Node.js for TypeScript by running "npm i --save-dev @types/node@20.8.3". Please see the docs for more details: https://developers.cloudflare.com/workers/languages/typescript/#transitive-loading-of-typesnode-overrides-cloudflareworkers-types
+- https://github.com/cloudflare/workerd/issues/1298
+- https://github.com/cloudflare/workerd/pull/2708
+
+````
+Add the generated types to the types array in your tsconfig.json:
+
+        {
+                "compilerOptions": {
+                        ...
+                        "types": ["./.wrangler/types/runtime.d.ts"]
+                        ...
+                }
+        }
+
+
 # Welcome to React Router!
 
 A modern, production-ready template for building full-stack React applications using React Router.
@@ -23,7 +44,7 @@ Install the dependencies:
 
 ```bash
 npm install
-```
+````
 
 ### Development
 
