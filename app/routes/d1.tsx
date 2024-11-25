@@ -1,4 +1,5 @@
 import type { Route } from './+types/d1'
+import { Button } from '~/lib/rac/Button'
 
 export async function loader({ context }: Route.LoaderArgs) {
   const data = await context.env.D1.prepare('select * from roles')
@@ -9,5 +10,10 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export default function RouteComponent({ loaderData }: Route.ComponentProps) {
-  return <pre className="p-4">{JSON.stringify(loaderData.data, null, 2)}</pre>
+  return (
+    <div className="container p-6">
+      {/* <Button>Click me</Button> */}
+      <pre>{JSON.stringify(loaderData.data, null, 2)}</pre>
+    </div>
+  )
 }

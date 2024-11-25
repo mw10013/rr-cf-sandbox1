@@ -16,7 +16,7 @@ const migrationFiles = await glob('./migrations/*.sql')
 console.log({ migrationFiles })
 if (migrationFiles.length > 0) {
   await $`pnpm d1:migrate:apply`
-  await $`pnpm d1:seed`
+  // await $`pnpm d1:seed`
 }
 
 const sqliteFiles = await glob("./.wrangler/state/v3/d1/**/*.sqlite");

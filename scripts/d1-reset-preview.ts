@@ -36,4 +36,4 @@ await patchWranglerToml(appWranglerPath)
 // await patchWranglerToml(workerWranglerPath)
 
 await $`pnpm d1:migrate:apply:preview`
-await $`pnpm d1:seed:preview`
+// await $`pnpm d1:seed:preview`

@@ -36,4 +36,4 @@ async function patchWranglerToml(wranglerPath: string) {
 await patchWranglerToml(appWranglerPath)
 
 await $`pnpm d1:migrate:apply:PRODUCTION`
-await $`pnpm d1:seed:PRODUCTION`
+// await $`pnpm d1:seed:PRODUCTION`
