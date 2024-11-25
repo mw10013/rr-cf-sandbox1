@@ -40,6 +40,6 @@ SERVICE_NAME = "rr-cf-sandbox1-production"
 [[env.production.d1_databases]]
 binding = "D1"
 database_name = "rr-cf-sandbox1-d1-production"
-database_id = "862b0a54-3bb8-4175-9da3-0dd404504106"
+database_id = "a611c24b-49a7-48e4-a672-db3cbffeb5b1"
 
 
