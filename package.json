@@ -36,7 +36,6 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",
-    "@hiogawa/vite-node-miniflare": "0.1.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
     "@react-router/dev": "^7.0.1",
     "@types/react": "^18.3.12",
