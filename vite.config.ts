@@ -1,4 +1,5 @@
 import { vitePluginViteNodeMiniflare } from '@hiogawa/vite-node-miniflare'
+// import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
 import { reactRouter } from '@react-router/dev/vite'
 import autoprefixer from 'autoprefixer'
 import tailwindcss from 'tailwindcss'
@@ -46,6 +47,7 @@ export default defineConfig(({ isSsrBuild }) => ({
         options.d1Persist = '.wrangler/state/v3/d1'
       },
     }),
+    // cloudflareDevProxy(),
     reactRouter(),
     tsconfigPaths(),
   ],

@@ -24,7 +24,8 @@ const requestHandler = createRequestHandler(
 
 export default {
   fetch(request, env) {
-    console.log({ env })
+    console.log('FETCH')
+    console.log({ env, foo: 'bar' })
     return requestHandler(request, {
       VALUE_FROM_CLOUDFLARE: 'Hello from Cloudflare',
       env,
