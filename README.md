@@ -1,6 +1,14 @@
 - production: https://rr-cf-sandbox1-production.devxo.workers.dev/
 - preview: https://rr-cf-sandbox1-preview.devxo.workers.dev/
 
+# Shadcn ui
+- https://ui.shadcn.com/docs/installation/vite - edit tsconfig.json
+- pnpx shadcn@latest init
+  - style: default
+- components.json
+  - rsc: true
+  - edit aliases
+
 # Typegen
 
 - pnpm typegen
