@@ -2,12 +2,14 @@
 - preview: https://rr-cf-sandbox1-preview.devxo.workers.dev/
 
 # Shadcn ui
+
 - https://ui.shadcn.com/docs/installation/vite - edit tsconfig.json
 - pnpx shadcn@latest init
-  - style: default
+  - style: new york
 - components.json
   - rsc: true
   - edit aliases
+- check syntax of tailwind.config.js
 
 # Typegen
 

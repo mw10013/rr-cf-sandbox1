@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@radix-ui/react-slot':
+        specifier: ^1.1.0
+        version: 1.1.0(@types/react@18.3.12)(react@18.3.1)
       '@react-router/fs-routes':
         specifier: ^7.0.1
         version: 7.0.1(@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.9.3)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.3))(wrangler@3.90.0(@cloudflare/workers-types@4.20241112.0)))(typescript@5.7.2)
@@ -782,6 +785,24 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@radix-ui/react-compose-refs@1.1.0':
+    resolution: {integrity: sha512-b4inOtiaOnYf9KWyO3jAeeCG6FeyfY6ldiEPanbUjWd+xIk5wZeHa8yVwmrJ2vderhu/BQvzCrJI0lHd+wIiqw==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  '@radix-ui/react-slot@1.1.0':
+    resolution: {integrity: sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   '@react-router/dev@7.0.1':
     resolution: {integrity: sha512-7B9xUb/5um3Pe/zqpObQP/Yhypw49q6CFxn7NWWS78DJnuO7axXuH4IerrMLIiqv+8Ft0uo3UQVj+ztTr0T2+w==}
@@ -2908,6 +2929,19 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@radix-ui/react-compose-refs@1.1.0(@types/react@18.3.12)(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.12
+
+  '@radix-ui/react-slot@1.1.0(@types/react@18.3.12)(react@18.3.1)':
+    dependencies:
+      '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.12)(react@18.3.1)
+      react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.12
 
   '@react-router/dev@7.0.1(@react-router/serve@7.0.1(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2))(@types/node@22.9.3)(react-router@7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.3))(wrangler@3.90.0(@cloudflare/workers-types@4.20241112.0))':
     dependencies:
