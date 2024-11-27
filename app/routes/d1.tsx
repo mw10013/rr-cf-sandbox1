@@ -1,7 +1,7 @@
 import type { Route } from './+types/d1'
 // import { Button } from '~/lib/components/ui/button'
 
-import { Button } from '~/lib/rac/Button'
+import { Button } from '~/lib/components/rac-starter/Button'
 
 export async function loader({ context }: Route.LoaderArgs) {
   const data = await context.cloudflare.env.D1.prepare('select * from roles')
