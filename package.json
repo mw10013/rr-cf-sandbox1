@@ -24,6 +24,7 @@
     "script": "tsx --env-file=.dev.vars"
   },
   "dependencies": {
+    "@epic-web/invariant": "^1.0.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@react-router/fs-routes": "^7.0.1",
     "@react-router/node": "^7.0.1",
