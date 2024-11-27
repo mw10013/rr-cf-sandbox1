@@ -6,7 +6,7 @@ import { Form } from '~/lib/components/rac-starter/Form'
 import { TextField } from '~/lib/components/rac-starter/TextField'
 
 export async function loader({ context }: Route.LoaderArgs) {
-  const data = await context.cloudflare.env.D1.prepare('select * from roles')
+  const data = await context.cloudflare.env.D1.prepare('select * from users')
     // .bind("Bs Beverages")
     .all()
 

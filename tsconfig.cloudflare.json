@@ -9,6 +9,7 @@
   "compilerOptions": {
     "composite": true,
     "strict": true,
+    "exactOptionalPropertyTypes": true, // https://effect.website/docs/schema/introduction/#requirements
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["@cloudflare/workers-types", "vite/client"],
     "target": "ES2022",
