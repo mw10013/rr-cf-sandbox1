@@ -6,6 +6,15 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({ isSsrBuild }) => ({
+  // https://github.com/adobe/react-spectrum/issues/6694
+  resolve: {
+    alias: [
+      {
+        find: 'use-sync-external-store/shim/index.js',
+        replacement: 'react',
+      },
+    ],
+  },
   build: {
     rollupOptions: isSsrBuild
       ? {
