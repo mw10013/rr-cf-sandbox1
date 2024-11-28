@@ -6,6 +6,7 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "wrangler dev",
+    "test": "vitest",
     "typecheck": "react-router typegen && tsc --build --noEmit",
     "typegen": "wrangler types app//worker-configuration.d.ts --x-include-runtime",
     "clean": "rm -rf node_modules && rm -rf .wrangler",
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",
+    "@effect/vitest": "^0.13.19",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
     "@react-router/dev": "^7.0.1",
     "@types/react": "^18.3.12",
@@ -58,6 +60,7 @@
     "typescript": "^5.6.3",
     "vite": "^5.4.11",
     "vite-tsconfig-paths": "^5.1.2",
+    "vitest": "^2.1.6",
     "wrangler": "^3.87.0",
     "zx": "^8.2.2"
   }

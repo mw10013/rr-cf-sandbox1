@@ -54,6 +54,36 @@ export class OrganizationAggregate extends Organization.extend<OrganizationAggre
   memberships: Schema.Array(MembershipAggregate),
 }) {}
 
+// https://discord.com/channels/795981131316985866/847382157861060618/threads/1270826681505939517
+// https://effect.website/play#f56afd8f1a9a
+const FormDataFromSelf = Schema.instanceOf(FormData).annotations({
+  identifier: 'FormDataFromSelf',
+})
+
+const RecordFromFormData = Schema.transform(
+  FormDataFromSelf,
+  Schema.Record({ key: Schema.String, value: Schema.String }),
+  {
+    strict: false,
+    decode: (formData) => Object.fromEntries(formData.entries()),
+    encode: (data) => {
+      const formData = new FormData()
+      for (const [key, value] of Object.entries(data)) {
+        formData.append(key, value)
+      }
+      return formData
+    },
+  }
+).annotations({ identifier: 'RecordFromFormData' })
+
+const FormDataSchema = <A, I extends Record<string, string>, R>(
+  schema: Schema.Schema<A, I, R>
+) => Schema.compose(RecordFromFormData, schema, { strict: false })
+
+const UserCreateFormSchema = FormDataSchema(
+  Schema.Struct({ email: Schema.String })
+)
+
 export async function loader({ context }: Route.LoaderArgs) {
   const data = await context.cloudflare.env.D1.prepare('select * from users')
     // .bind("Bs Beverages")
@@ -69,16 +99,17 @@ export async function action({ request, context }: Route.ActionArgs) {
 
   switch (intent) {
     case 'user_create': {
+      const decode = Schema.decodeSync(UserCreateFormSchema)(formData)
+      const either = Schema.decodeEither(UserCreateFormSchema)(formData)
       const email = String(formData.get('email'))
       invariant(typeof email === 'string' && email, 'Missing email')
       console.log({ email })
-      const data = await context.cloudflare.env.D1.prepare(
+      const d1Result = await context.cloudflare.env.D1.prepare(
         `insert into users (email, role) values (?, 'customer')`
       )
         .bind(email)
         .run()
-      console.log({ data })
-      return data
+      return { d1Result, decode, either }
     }
     case 'user_delete': {
       const email = String(formData.get('email'))
@@ -115,7 +146,7 @@ export default function RouteComponent({
           user_delete
         </Button>
       </Form>
-      <pre>{JSON.stringify({ loaderData, actionData }, null, 2)}</pre>
+      <pre>{JSON.stringify({ actionData, loaderData }, null, 2)}</pre>
     </div>
   )
 }
