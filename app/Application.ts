@@ -22,9 +22,6 @@ import { Trim } from 'effect/Schema'
 //     /^(?!\.)(?!.*\.\.)([A-Z0-9_+-.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9-]*\.)+[A-Z]{2,}$/i
 //   )
 // ).pipe(Schema.brand(EmailBrand))
-
-const EmailBrand = Symbol.for('Email')
-
 // no built-in email combinator by-design (lot of definitions out there)
 // const EmailSchema = Schema.NonEmptyTrimmedString.pipe(
 //   Schema.pattern(
@@ -34,13 +31,14 @@ const EmailBrand = Symbol.for('Email')
 
 // export const EmailSchema = Schema.NonEmptyString
 // export const EmailSchema = Schema.NonEmptyTrimmedString
-export const EmailSchema = Schema.NonEmptyTrimmedString.pipe(
-  Schema.brand(EmailBrand)
-)
 // export const EmailSchema = Trim
 // export const EmailSchema = Schema.compose(Trim, Schema.nonEmptyString)
 // export const EmailSchema = Schema.compose(Schema.nonEmptyString, Trim)
 
+const EmailBrand = Symbol.for('Email')
+export const EmailSchema = Schema.NonEmptyTrimmedString.pipe(
+  Schema.brand(EmailBrand)
+)
 export const UserSchema = Schema.Struct({
   email: EmailSchema,
 })

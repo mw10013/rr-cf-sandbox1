@@ -7,7 +7,7 @@ describe('Domain', () => {
   // https://github.com/react-hook-form/resolvers/blob/master/effect-ts/src/effect-ts.ts
 
   it.only('should either error', async () => {
-    await Schema.decodeUnknown(UserSchema, {
+    const result = await Schema.decodeUnknown(UserSchema, {
       errors: 'all',
       onExcessProperty: 'ignore',
     })({ email: ' a@Mailbox.com' }).pipe(
@@ -20,12 +20,13 @@ describe('Domain', () => {
           // { _tag: 'Missing', path: ["email"], message: 'is missing' },
           acc[issue.path.join('.')] = issue.message
           return acc
-        }, {})
+        }, {} as Record<string, string>)
       ),
       Effect.either,
-      Effect.tap((value) => Console.log(value)),
+      // Effect.tap((value) => Console.log(value)),
       Effect.runPromise
     )
+    console.log({ result })
   })
 
   it('should error', async () => {
