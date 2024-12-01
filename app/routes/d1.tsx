@@ -11,7 +11,7 @@ export type Role = typeof RoleSchema.Type
 export const roles = RoleSchema.literals
 export const isRole = Schema.is(RoleSchema)
 
-export const assertsRole: Schema.Schema.ToAsserts<typeof RoleSchema> =
+export const assertRole: Schema.Schema.ToAsserts<typeof RoleSchema> =
   Schema.asserts(RoleSchema)
 
 const MembershipRoleSchema = Schema.Literal('owner', 'member')
@@ -19,7 +19,7 @@ export type MembershipRole = typeof MembershipRoleSchema.Type
 export const membershipRoles = MembershipRoleSchema.literals
 export const isMembershipRole = Schema.is(MembershipRoleSchema)
 
-export const assertsMembershipRole: Schema.Schema.ToAsserts<
+export const assertMembershipRole: Schema.Schema.ToAsserts<
   typeof MembershipRoleSchema
 > = Schema.asserts(MembershipRoleSchema)
 
