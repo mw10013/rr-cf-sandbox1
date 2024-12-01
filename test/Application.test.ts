@@ -19,15 +19,19 @@ describe('Domain', () => {
       Effect.catchAll((parseError) =>
         Effect.flip(ParseResult.ArrayFormatter.formatError(parseError))
       ),
+      //     { _tag: 'Missing', path: ["name"], message: 'is missing' },
+      Effect.mapError((issues) => {
+        const validationErrors = issues.reduce((acc, issue) => {
+          acc[issue.path.join('.')] = issue.message
+          return acc
+        }, {})
+        return validationErrors
+      }),
       Effect.match({
-        onFailure: (errors) => ({ errors, values: {} }),
-        onSuccess: (result) => ({ errors: {}, values: result }),
+        onFailure: (errors) => ({ errors, value: {} }),
+        onSuccess: (value) => ({ errors: {}, value }),
       }),
-      // Effect.tap((result) => Console.log(result)),
-      Effect.tapBoth({
-        onFailure: (errors) => Console.log(errors),
-        onSuccess: (result) => Console.log(result),
-      }),
+      Effect.tap((value) => Console.log(value)),
       Effect.runPromise
     )
     // console.log({ result })
