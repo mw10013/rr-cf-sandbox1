@@ -1,7 +1,6 @@
 import { Schema } from 'effect'
 import { Trim } from 'effect/Schema'
 
-
 /// option from non-empty trimmed string
 // https://github.com/Effect-TS/effect/issues/3335
 
@@ -35,7 +34,13 @@ const EmailBrand = Symbol.for('Email')
 
 // export const EmailSchema = Schema.NonEmptyString
 // export const EmailSchema = Schema.NonEmptyTrimmedString
-export const EmailSchema = Schema.NonEmptyTrimmedString.pipe(Schema.brand(EmailBrand))
+export const EmailSchema = Schema.NonEmptyTrimmedString.pipe(
+  Schema.brand(EmailBrand)
+)
 // export const EmailSchema = Trim
 // export const EmailSchema = Schema.compose(Trim, Schema.nonEmptyString)
 // export const EmailSchema = Schema.compose(Schema.nonEmptyString, Trim)
+
+export const UserSchema = Schema.Struct({
+  email: EmailSchema,
+})
