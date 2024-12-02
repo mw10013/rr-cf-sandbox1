@@ -1,37 +1,22 @@
-import { assert, describe, expect, it } from '@effect/vitest'
+import { assert, describe, it } from '@effect/vitest'
 import { Console, Effect, Either, ParseResult, Schema } from 'effect'
-import { User } from '../app/Application'
-
-export const parse = <A, I>(schema: Schema.Schema<A, I>, u: unknown) =>
-  // Schema does not have R so we can runPromise() which expects R to be never.
-  Schema.decodeUnknown(schema, {
-    errors: 'all',
-    onExcessProperty: 'ignore',
-  })(u).pipe(
-    Effect.tapError((parseError) => Console.log(parseError)),
-    Effect.catchAll((parseError) =>
-      Effect.flip(ParseResult.ArrayFormatter.formatError(parseError))
-    ),
-    Effect.mapError((issues) =>
-      issues.reduce(
-        (acc, issue) => {
-          // { _tag: 'Missing', path: ["email"], message: 'is missing' },
-          acc[issue.path.join('.')] = issue.message
-          return acc
-        },
-        {} as Record<string, string>
-      )
-    ),
-    Effect.either,
-    Effect.runPromise
-  )
+import { parse, User, UserCreateForm } from '../app/Application'
 
 describe('Domain', () => {
-  it.only('should parse', async () => {
-    const result = await parse(User, {
-      email: ' a@Mailbox.com',
+  it('should parse User', async () => {
+    const parseResult = await parse(User)({
+      // email: ' a@Mailbox.com',
     })
-    console.log({ result })
+    console.log({ parseResult })
+    assert(Either.isLeft(parseResult))
+  })
+
+  it.only('should parse form', async () => {
+    const formData = new FormData()
+    // formData.append('email', 'a@Mailbox.com')
+    formData.append('email', '7')
+    const parseResult = await parse(UserCreateForm)(formData)
+    console.log({ parseResult })
   })
 
   // https://github.com/react-hook-form/resolvers/blob/master/effect-ts/src/effect-ts.ts

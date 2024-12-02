@@ -1,4 +1,4 @@
-import { Schema } from 'effect'
+import { Console, Effect, ParseResult, Schema } from 'effect'
 
 /// option from non-empty trimmed string
 // https://github.com/Effect-TS/effect/issues/3335
@@ -55,8 +55,8 @@ const EmailBrand = Symbol.for('Email')
 export const Email = Schema.NonEmptyTrimmedString.pipe(Schema.brand(EmailBrand))
 
 export class User extends Schema.Class<User>('User')({
-  userId: Email,
-  email: Schema.String,
+  userId: Schema.Number,
+  email: Email,
   name: Schema.String,
   role: RoleSchema,
 }) {}
@@ -107,10 +107,62 @@ const RecordFromFormData = Schema.transform(
   }
 ).annotations({ identifier: 'RecordFromFormData' })
 
-const FormDataSchema = <A, I extends Record<string, string>, R>(
+export const FormDataSchema = <A, I extends Record<string, string>, R>(
   schema: Schema.Schema<A, I, R>
 ) => Schema.compose(RecordFromFormData, schema, { strict: false })
 
-const UserCreateFormSchema = FormDataSchema(
-  Schema.Struct({ email: Schema.String })
-)
+// export const UserCreateForm = FormDataSchema(
+//   Schema.Struct({ email: Schema.NumberFromString })
+// )
+
+export const UserCreateForm = FormDataSchema(User.pipe(Schema.pick('email')))
+
+export const parse =
+  <A, I>(schema: Schema.Schema<A, I>) =>
+  (u: unknown) =>
+    // Schema does not have R so we can runPromise() which expects R to be never.
+    Schema.decodeUnknown(schema, {
+      errors: 'all',
+      onExcessProperty: 'ignore',
+    })(u).pipe(
+      Effect.tapError((parseError) => Console.log(parseError)),
+      Effect.catchAll((parseError) =>
+        Effect.flip(ParseResult.ArrayFormatter.formatError(parseError))
+      ),
+      Effect.mapError((issues) =>
+        issues.reduce(
+          (acc, issue) => {
+            // { _tag: 'Missing', path: ["email"], message: 'is missing' },
+            acc[issue.path.join('.')] = issue.message
+            return acc
+          },
+          {} as Record<string, string>
+        )
+      ),
+      Effect.either,
+      Effect.runPromise
+    )
+
+// export const parse = <A, I>(schema: Schema.Schema<A, I>, u: unknown) =>
+//   // Schema does not have R so we can runPromise() which expects R to be never.
+//   Schema.decodeUnknown(schema, {
+//     errors: 'all',
+//     onExcessProperty: 'ignore',
+//   })(u).pipe(
+//     Effect.tapError((parseError) => Console.log(parseError)),
+//     Effect.catchAll((parseError) =>
+//       Effect.flip(ParseResult.ArrayFormatter.formatError(parseError))
+//     ),
+//     Effect.mapError((issues) =>
+//       issues.reduce(
+//         (acc, issue) => {
+//           // { _tag: 'Missing', path: ["email"], message: 'is missing' },
+//           acc[issue.path.join('.')] = issue.message
+//           return acc
+//         },
+//         {} as Record<string, string>
+//       )
+//     ),
+//     Effect.either,
+//     Effect.runPromise
+//   )
