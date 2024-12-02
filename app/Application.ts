@@ -28,12 +28,6 @@ import { Console, Effect, ParseResult, Schema } from 'effect'
 //   )
 // )
 
-// export const EmailSchema = Schema.NonEmptyString
-// export const EmailSchema = Schema.NonEmptyTrimmedString
-// export const EmailSchema = Trim
-// export const EmailSchema = Schema.compose(Trim, Schema.nonEmptyString)
-// export const EmailSchema = Schema.compose(Schema.nonEmptyString, Trim)
-
 const RoleSchema = Schema.Literal('admin', 'customer')
 export type Role = typeof RoleSchema.Type
 export const roles = RoleSchema.literals
@@ -111,10 +105,6 @@ export const FormDataSchema = <A, I extends Record<string, string>, R>(
   schema: Schema.Schema<A, I, R>
 ) => Schema.compose(RecordFromFormData, schema, { strict: false })
 
-// export const UserCreateForm = FormDataSchema(
-//   Schema.Struct({ email: Schema.NumberFromString })
-// )
-
 export const UserCreateForm = FormDataSchema(User.pipe(Schema.pick('email')))
 
 export const parse =
@@ -125,7 +115,7 @@ export const parse =
       errors: 'all',
       onExcessProperty: 'ignore',
     })(u).pipe(
-      Effect.tapError((parseError) => Console.log(parseError)),
+      // Effect.tapError((parseError) => Console.log(parseError)),
       Effect.catchAll((parseError) =>
         Effect.flip(ParseResult.ArrayFormatter.formatError(parseError))
       ),
@@ -142,27 +132,3 @@ export const parse =
       Effect.either,
       Effect.runPromise
     )
-
-// export const parse = <A, I>(schema: Schema.Schema<A, I>, u: unknown) =>
-//   // Schema does not have R so we can runPromise() which expects R to be never.
-//   Schema.decodeUnknown(schema, {
-//     errors: 'all',
-//     onExcessProperty: 'ignore',
-//   })(u).pipe(
-//     Effect.tapError((parseError) => Console.log(parseError)),
-//     Effect.catchAll((parseError) =>
-//       Effect.flip(ParseResult.ArrayFormatter.formatError(parseError))
-//     ),
-//     Effect.mapError((issues) =>
-//       issues.reduce(
-//         (acc, issue) => {
-//           // { _tag: 'Missing', path: ["email"], message: 'is missing' },
-//           acc[issue.path.join('.')] = issue.message
-//           return acc
-//         },
-//         {} as Record<string, string>
-//       )
-//     ),
-//     Effect.either,
-//     Effect.runPromise
-//   )

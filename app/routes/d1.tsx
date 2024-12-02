@@ -1,7 +1,7 @@
 import type { Route } from './+types/d1'
 // import { Button } from '~/lib/components/ui/button'
 import { invariant } from '@epic-web/invariant'
-import { Schema } from 'effect'
+import { Either } from 'effect'
 import { parse, UserCreateForm } from '~/Application'
 import { Button } from '~/lib/components/rac-starter/Button'
 import { Form } from '~/lib/components/rac-starter/Form'
@@ -21,8 +21,12 @@ export async function action({ request, context }: Route.ActionArgs) {
   switch (intent) {
     case 'user_create': {
       const parseResult = await parse(UserCreateForm)(formData)
-      console.log({ parseResult })
-      return { parseResult }
+      // console.log({ parseResult })
+      return {
+        validationErrors: Either.isLeft(parseResult)
+          ? parseResult.left
+          : undefined,
+      }
     }
     // case 'user_create': {
     //   const decode = Schema.decodeSync(UserCreateFormSchema)(formData)
@@ -37,18 +41,18 @@ export async function action({ request, context }: Route.ActionArgs) {
     //     .run()
     //   return { d1Result, decode, either }
     // }
-    case 'user_delete': {
-      const email = String(formData.get('email'))
-      invariant(typeof email === 'string' && email, 'Missing email')
-      console.log({ email })
-      const data = await context.cloudflare.env.D1.prepare(
-        `delete from users where email = ?`
-      )
-        .bind(email)
-        .run()
-      console.log({ data })
-      return data
-    }
+    // case 'user_delete': {
+    //   const email = String(formData.get('email'))
+    //   invariant(typeof email === 'string' && email, 'Missing email')
+    //   console.log({ email })
+    //   const data = await context.cloudflare.env.D1.prepare(
+    //     `delete from users where email = ?`
+    //   )
+    //     .bind(email)
+    //     .run()
+    //   console.log({ data })
+    //   return data
+    // }
     default:
       throw new Error(`Unknown intent: ${intent}`)
   }
@@ -60,18 +64,21 @@ export default function RouteComponent({
 }: Route.ComponentProps) {
   return (
     <div className="container p-6">
-      <Form method="post" className="max-w-sm">
+      <Form
+        method="post"
+        className="max-w-sm"
+        validationErrors={actionData?.validationErrors || {}}>
         <TextField name="email" label="Email" />
         <Button type="submit" name="intent" value="user_create">
           user_create
         </Button>
       </Form>
-      <Form method="post" className="max-w-sm">
+      {/* <Form method="post" className="max-w-sm">
         <TextField name="email" label="Email" />
         <Button type="submit" name="intent" value="user_delete">
           user_delete
         </Button>
-      </Form>
+      </Form> */}
       <pre>{JSON.stringify({ actionData, loaderData }, null, 2)}</pre>
     </div>
   )
