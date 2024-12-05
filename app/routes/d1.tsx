@@ -19,11 +19,12 @@ export async function action({ request, context }: Route.ActionArgs) {
   const formData = await request.formData()
   const intent = String(formData.get('intent'))
   console.log({ intent })
-  const parseResult = await parse(UserCreateForm)(formData)
+  // const parseResult = await parse(UserCreateForm)(formData)
   return {
-    validationErrors: Either.isLeft(parseResult) ? parseResult.left : undefined,
+    // validationErrors: Either.isLeft(parseResult) ? parseResult.left : undefined,
   }
 }
+
 /*
   const intent = String(formData.get('intent'))
   console.log({ intent })
