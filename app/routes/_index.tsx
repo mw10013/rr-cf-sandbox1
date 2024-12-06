@@ -21,8 +21,10 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader({ context }: Route.LoaderArgs) {
   const d1 = context.cloudflare.env.D1
-  const result = await d1.prepare('select * from users').run()
-  return { result }
+  const result = await d1
+    .prepare('select * from users')
+    .run<{ userId: number; email: string; name: string; role: string }>()
+  return { users: result.results, result }
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
@@ -64,12 +66,14 @@ export default function RouteComponent({ loaderData }: Route.ComponentProps) {
           <Column>Email</Column>
           <Column>Name</Column>
         </TableHeader>
-        <TableBody>
-          <Row>
-            <Cell>1</Cell>
-            <Cell>admin@mail.com</Cell>
-            <Cell>admin</Cell>
-          </Row>
+        <TableBody items={loaderData.users}>
+          {(user) => (
+            <Row id={user.userId}>
+              <Cell>{user.userId}</Cell>
+              <Cell>{user.email}</Cell>
+              <Cell>{user.name}</Cell>
+            </Row>
+          )}
         </TableBody>
       </Table>
       <pre>{JSON.stringify({ loaderData }, null, 2)}</pre>
