@@ -11,6 +11,9 @@ import {
   Table,
   TableHeader,
 } from '~/lib/components/rac-starter/Table'
+import TableExample from '~/lib/components/TableExmple'
+import { Example } from '~/lib/components/TableStarterExample1'
+import { TableStockExample } from '~/lib/components/TableStockExample'
 
 // import { Form } from '~/lib/components/rac-starter/Form'
 
@@ -60,12 +63,19 @@ export async function action({ request, context }: Route.ActionArgs) {
 
 export default function RouteComponent({ loaderData }: Route.ComponentProps) {
   return (
-    <div className="containner p-6">
+    <div className="flex flex-col space-y-4 p-6">
       <Form method="post" className="max-w-sm">
         <Button type="submit" name="intent" value="seed">
           Seed
         </Button>
       </Form>
+      <TableStockExample />
+      <TableExample />
+      <Example
+        onCellAction={null}
+        onRowAction={null}
+        selectionMode="multiple"
+      />
       <Table>
         <TableHeader>
           <Column isRowHeader>ID</Column>
