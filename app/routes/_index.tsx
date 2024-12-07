@@ -1,4 +1,6 @@
 import type { Route } from './+types/_index'
+// import { range } from "effect/Array"
+import * as Arr from 'effect/Array'
 import { TableBody } from 'react-aria-components'
 import { Form } from 'react-router'
 import { Button } from '~/lib/components/rac-starter/Button'
@@ -36,11 +38,15 @@ export async function action({ request, context }: Route.ActionArgs) {
       {
         const d1 = context.cloudflare.env.D1
         await d1.prepare('delete from users').run()
+        const users = Arr.range(1, 10)
+          .map((v) => `('${v}@mail.com', 'name-${v}', 'customer')`)
+          .join(',')
         const result = await d1
           .prepare(
             `insert into users (email, name, role) values 
           ('admin@mail.com', 'admin', 'admin'),
-          ('a@mail.com', 'a', 'customer')`
+          ('a@mail.com', 'a', 'customer'),
+          ${users}`
           )
           .run()
         console.log({ result })
