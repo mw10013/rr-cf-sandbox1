@@ -28,6 +28,7 @@ export const Example = (args: any) => {
   })
 
   let items = useMemo(() => {
+    console.log({ sortDescriptor })
     // @ts-ignore
     let items = rows
       .slice()
