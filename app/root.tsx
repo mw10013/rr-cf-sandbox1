@@ -1,7 +1,6 @@
 import type { NavigateOptions } from 'react-router'
 import type { Route } from './+types/root'
 // import {BrowserRouter, type NavigateOptions, useHref, useNavigate} from 'react-router-dom';
-import { RouterProvider } from 'react-aria-components'
 import {
   isRouteErrorResponse,
   Links,
@@ -14,11 +13,11 @@ import {
 } from 'react-router'
 import './app.css'
 
-declare module 'react-aria-components' {
-  interface RouterConfig {
-    routerOptions: NavigateOptions
-  }
-}
+// declare module 'react-aria-components' {
+//   interface RouterConfig {
+//     routerOptions: NavigateOptions
+//   }
+// }
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -44,9 +43,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <RouterProvider navigate={navigate} useHref={useHref}>
-          {children}
-        </RouterProvider>
+        {/* <RouterProvider navigate={navigate} useHref={useHref}> */}
+        {children}
+        {/* </RouterProvider> */}
         <ScrollRestoration />
         <Scripts />
       </body>
