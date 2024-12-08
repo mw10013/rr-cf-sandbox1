@@ -4,7 +4,6 @@ import type {
   RowProps,
   SortDescriptor,
 } from 'react-aria-components'
-// import ArrowUpIcon from '@spectrum-icons/ui/ArrowUpSmall';
 import { useMemo, useState } from 'react'
 import {
   Cell,
@@ -17,74 +16,6 @@ import {
   TableBody,
   TableHeader,
 } from 'react-aria-components'
-
-export default function RouteComponent() {
-  let [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: 'symbol',
-    direction: 'ascending',
-  })
-  let sortedItems = useMemo(() => {
-    return stocks.sort((a, b) => {
-      let first = a[sortDescriptor.column]
-      let second = b[sortDescriptor.column]
-      let cmp = first.localeCompare(second)
-      if (sortDescriptor.direction === 'descending') {
-        cmp *= -1
-      }
-      return cmp
-    })
-  }, [sortDescriptor])
-
-  return (
-    // <div className="flex items-center justify-center rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 p-8 md:col-span-2">
-    <div className="p-6">
-      <ResizableTableContainer
-        className="relative max-h-[280px] w-full scroll-pt-[2.321rem] overflow-auto rounded-lg bg-white text-gray-600 shadow"
-        style={{ minWidth: 0 }}>
-        <Table
-          aria-label="Stocks"
-          selectionMode="multiple"
-          selectionBehavior="replace"
-          sortDescriptor={sortDescriptor}
-          onSortChange={setSortDescriptor}
-          className="border-separate border-spacing-0">
-          <TableHeader>
-            <StockColumn id="symbol" allowsSorting>
-              Symbol
-            </StockColumn>
-            <StockColumn id="name" isRowHeader allowsSorting defaultWidth="3fr">
-              Name
-            </StockColumn>
-            <StockColumn id="marketCap" allowsSorting>
-              Market Cap
-            </StockColumn>
-            <StockColumn id="sector" allowsSorting>
-              Sector
-            </StockColumn>
-            <StockColumn id="industry" allowsSorting defaultWidth="2fr">
-              Industry
-            </StockColumn>
-          </TableHeader>
-          <TableBody items={sortedItems}>
-            {(item) => (
-              <StockRow>
-                <StockCell>
-                  <span className="rounded border border-slate-200 bg-slate-100 px-1 font-mono group-selected:border-slate-800 group-selected:bg-slate-700">
-                    ${item.symbol}
-                  </span>
-                </StockCell>
-                <StockCell className="font-semibold">{item.name}</StockCell>
-                <StockCell>{item.marketCap}</StockCell>
-                <StockCell>{item.sector}</StockCell>
-                <StockCell>{item.industry}</StockCell>
-              </StockRow>
-            )}
-          </TableBody>
-        </Table>
-      </ResizableTableContainer>
-    </div>
-  )
-}
 
 export const stocks = [
   {
@@ -488,15 +419,18 @@ export const stocks = [
     industry: 'Telecommunications Equipment',
   },
 ]
-export function TableStockExample() {
+
+export default function RouteComponent() {
   let [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: 'symbol',
     direction: 'ascending',
   })
   let sortedItems = useMemo(() => {
     return stocks.sort((a, b) => {
-      let first = a[sortDescriptor.column]
-      let second = b[sortDescriptor.column]
+      let first =
+        a[sortDescriptor.column as keyof Omit<(typeof stocks)[0], 'id'>]
+      let second =
+        b[sortDescriptor.column as keyof Omit<(typeof stocks)[0], 'id'>]
       let cmp = first.localeCompare(second)
       if (sortDescriptor.direction === 'descending') {
         cmp *= -1
@@ -506,7 +440,6 @@ export function TableStockExample() {
   }, [sortDescriptor])
 
   return (
-    // <div className="flex items-center justify-center rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 p-8 md:col-span-2">
     <div className="p-6">
       <ResizableTableContainer
         className="relative max-h-[280px] w-full scroll-pt-[2.321rem] overflow-auto rounded-lg bg-white text-gray-600 shadow"
@@ -519,7 +452,7 @@ export function TableStockExample() {
           onSortChange={setSortDescriptor}
           className="border-separate border-spacing-0">
           <TableHeader>
-            <StockColumn id="symbol" allowsSorting>
+            <StockColumn id="symbol" minWidth={100}  allowsSorting>
               Symbol
             </StockColumn>
             <StockColumn id="name" isRowHeader allowsSorting defaultWidth="3fr">
@@ -574,11 +507,11 @@ function StockColumn(props: ColumnProps & { children: React.ReactNode }) {
                   sortDirection === 'descending' ? 'rotate-180' : ''
                 }`}>
                 {/* {sortDirection && <ArrowUpIcon width={8} height={10} />} */}
-                {sortDirection && 'UP'}
+                {sortDirection && 'U'}
               </span>
             )}
           </Group>
-          <ColumnResizer className="h-5 w-px cursor-col-resize rounded bg-slate-400 bg-clip-content px-[8px] py-1 ring-inset ring-slate-600 focus-visible:ring-2 resizing:w-[2px] resizing:bg-slate-800 resizing:pl-[7px]" />
+          {/* <ColumnResizer className="h-5 w-px cursor-col-resize rounded bg-slate-400 bg-clip-content px-[8px] py-1 ring-inset ring-slate-600 focus-visible:ring-2 resizing:w-[2px] resizing:bg-slate-800 resizing:pl-[7px]" /> */}
         </div>
       )}
     </Column>
