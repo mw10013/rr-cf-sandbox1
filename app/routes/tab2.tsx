@@ -452,8 +452,8 @@ export default function RouteComponent() {
           onSortChange={setSortDescriptor}
           className="border-separate border-spacing-0">
           <TableHeader>
-            <StockColumn id="symbol" minWidth={100}  allowsSorting>
-              Symbol
+            <StockColumn id="symbol" minWidth={100} allowsSorting>
+              Symbol!
             </StockColumn>
             <StockColumn id="name" isRowHeader allowsSorting defaultWidth="3fr">
               Name
