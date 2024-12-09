@@ -440,7 +440,7 @@ export default function RouteComponent() {
   }, [sortDescriptor])
 
   return (
-    <div className="p-6">
+    <div className="flex items-center justify-center rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 p-8 md:col-span-2">
       <ResizableTableContainer
         className="relative max-h-[280px] w-full scroll-pt-[2.321rem] overflow-auto rounded-lg bg-white text-gray-600 shadow"
         style={{ minWidth: 0 }}>
@@ -507,11 +507,12 @@ function StockColumn(props: ColumnProps & { children: React.ReactNode }) {
                   sortDirection === 'descending' ? 'rotate-180' : ''
                 }`}>
                 {/* {sortDirection && <ArrowUpIcon width={8} height={10} />} */}
-                {sortDirection && 'U'}
+                {sortDirection && '↑'}
               </span>
             )}
           </Group>
           {/* <ColumnResizer className="h-5 w-px cursor-col-resize rounded bg-slate-400 bg-clip-content px-[8px] py-1 ring-inset ring-slate-600 focus-visible:ring-2 resizing:w-[2px] resizing:bg-slate-800 resizing:pl-[7px]" /> */}
+          <ColumnResizer className="h-5 w-px cursor-col-resize rounded bg-slate-400 bg-clip-content px-[8px] py-1 ring-inset ring-slate-600 focus-visible:ring-2 resizing:w-[2px] resizing:bg-slate-800 resizing:pl-[7px]">|</ColumnResizer>
         </div>
       )}
     </Column>
