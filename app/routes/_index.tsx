@@ -1,5 +1,5 @@
 import type { Route } from './+types/_index'
-// import { Button, ButtonGroup } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import * as Arr from 'effect/Array'
 
 export function meta({}: Route.MetaArgs) {
@@ -48,8 +48,8 @@ export async function action({ request, context }: Route.ActionArgs) {
 
 export default function RouteComponent({ loaderData }: Route.ComponentProps) {
   return (
-    <div className="flex flex-col space-y-4 p-6">
-      {/* <Button>NextUI</Button> */}
+    <div className="align-items-center flex flex-col justify-center space-y-4 p-6">
+      <Button color="primary">NextUI</Button>
       {/* <Form method="post" className="max-w-sm">
         <Button type="submit" name="intent" value="seed">
           Seed
